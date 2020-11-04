@@ -129,7 +129,10 @@ var makeTransaction = function makeTransaction(transaction) {
       var canProcess = Math.random() > 0.3;
 
       if (canProcess) {
-        resolve(transaction.id, delay);
+        resolve({
+          id: transaction.id,
+          time: delay
+        });
       }
 
       reject(transaction.id);
@@ -137,7 +140,9 @@ var makeTransaction = function makeTransaction(transaction) {
   });
 };
 
-var logSuccess = function logSuccess(id, time) {
+var logSuccess = function logSuccess(_ref) {
+  var id = _ref.id,
+      time = _ref.time;
   console.log("Transaction ".concat(id, " processed in ").concat(time, "ms"));
 };
 
@@ -201,7 +206,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64637" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54119" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
